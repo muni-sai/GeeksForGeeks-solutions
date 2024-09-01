@@ -1,0 +1,80 @@
+Max sum path in two arrays
+Difficulty: MediumAccuracy: 30.9%Submissions: 61K+Points: 4
+
+GIVEN PROBLEM STATEMENT:
+Given two sorted arrays of distinct integers arr1 and arr2. Each array may have some elements in common with the other array. Find the maximum sum of a path from the beginning of any array to the end of any array. You can switch from one array to another array only at the common elements.
+
+Note:  When we switch from one array to other,  we need to consider the common element only once in the result.
+
+Examples : 
+
+Input: arr1 = [2, 3, 7, 10, 12] , arr2 = [1, 5, 7, 8]
+Output: 35
+Explanation: The path will be 1+5+7+10+12 = 35, where 1 and 5 come from arr2 and then 7 is common so we switch to arr1 and add 10 and 12.
+Input: arr1 = [1, 2, 3] , arr2[] = [3, 4, 5]
+Output: 15
+Explanation: The path will be 1+2+3+4+5=15.
+Expected Time Complexity: O(m + n)
+Expected Auxiliary Space: O(1)
+Constraints:
+1 <= arr1.size(), arr2.size() <= 104
+1 <= arr1[i], arr2[i] <= 105
+
+SAMPLE CODE:
+
+#Your task is to complete this function
+#Function should return an integer denoting the required answer
+class Solution:
+    def maxPathSum(self, arr1, arr2):
+        # Code here
+
+
+#{ 
+ # Driver Code Starts
+if __name__ == "__main__":
+    t = int(input().strip())
+    for _ in range(t):
+        arr1 = list(map(int, input().strip().split()))
+        arr2 = list(map(int, input().strip().split()))
+        ob = Solution()
+        ans = ob.maxPathSum(arr1, arr2)
+        print(ans)
+
+# } Driver Code Ends
+
+
+ACTUAL CODE:
+
+class Solution:
+    def maxPathSum(self, arr1, arr2):
+        # Code here
+        m, n = len(arr1), len(arr2)
+        i, j = 0, 0
+        sum1, sum2 = 0, 0
+        result = 0
+
+        while i < m and j < n:
+            if arr1[i] == arr2[j]:
+                result += max(sum1, sum2) + arr1[i]
+                sum1, sum2 = 0, 0
+                i += 1
+                j += 1
+            elif arr1[i] < arr2[j]:
+                sum1 += arr1[i]
+                i += 1
+            else:
+                sum2 += arr2[j]
+                j += 1
+
+        while i < m:
+            sum1 += arr1[i]
+            i += 1
+
+        while j < n:
+            sum2 += arr2[j]
+            j += 1
+
+        result += max(sum1, sum2)
+        return result
+
+
